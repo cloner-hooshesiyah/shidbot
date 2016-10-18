@@ -1,7 +1,7 @@
 local function tosticker(msg, success, result)
   local receiver = get_receiver(msg)
   if success then
-    local file = 'data/stickers/'..msg.from.id..'.jpg'
+    local file = 'photo/'..msg.from.id..'.jpg'
     print('File downloaded to:', result)
     os.rename(result, file)
     print('File moved to:', file)
@@ -15,22 +15,22 @@ end
 local function run(msg,matches)
     local receiver = get_receiver(msg)
     local group = msg.to.id
-    if msg.media then
-      	if msg.media.type == 'document' and is_momod(msg) and redis:get("sticker:photo") then
-      		if redis:get("sticker:photo") == 'waiting' then
-        		load_document(msg.id, tosticker, msg)
-      		end
-      	end
+    if msg.reply_id then
+        if msg.to.type == 'photo' and redis:get("photo:sticker") then
+          if redis:set("sticker:photo", "waiting") then
+          end
+        end
+    
+      if matches[1] == "photo" then
+      redis:get("sticker:photo")  
+        load_photo(msg.reply_id, tosticker, msg)
     end
-    if matches[1] == "tophoto" and is_momod(msg) then
-    	redis:set("sticker:photo", "waiting")
-    	return 'Please send your sticker now'
-    end
+end
 end
 return {
   patterns = {
-	"^[!/](tophoto)$",
-	"%[(document)%]",
+  "^(photo)$",
+  "%[(photo)%]",
   },
   run = run,
-}
+  }
