@@ -19,6 +19,8 @@ end
  
 return {
   patterns = {
+'^(lock) contact$',
+'^(unlock) contact$'
 "%[(contact)%]",
   },
   run = run
