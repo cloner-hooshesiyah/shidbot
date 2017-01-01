@@ -2,8 +2,9 @@ do
 
 function run(msg, matches)
   return [[
-  👥Sudoers of Noosspeed : 
+  👥Sudoers of Bot : 
   🔭 @anony_bax 245846142 👥
+    برای خرید گروه به سودو در ایدی بالا مراجعه کنید گُلاے من 
    
  
   ]]
